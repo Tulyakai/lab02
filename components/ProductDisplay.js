@@ -47,7 +47,9 @@ app.component('product-display', {
                 ],
                 selectedVariant: 0,
                 activeClass: true,
-                reviews:[]   
+                reviews:[],
+                premium: true,
+
             }
         },
         methods: {
@@ -83,8 +85,10 @@ app.component('product-display', {
             shipping() {
                 if (this.premium) {
                     return 'Free'
+                }else{
+                    return 30
+
                 }
-                return 30
             }
         },
 })

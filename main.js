@@ -11,7 +11,6 @@ const app = Vue.createApp({
             ],
             selectedVariant: 0,
             cart: [],
-            premium: true,
             onSale: true
         }
     },
@@ -26,7 +25,8 @@ const app = Vue.createApp({
             this.cart.push(id)
         },
         popCart() {
-            this.cart.pop()
+            //this.cart.pop()
+            this.cart.splice(-1)
         }
     },
     computed: {
