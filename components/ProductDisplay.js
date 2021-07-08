@@ -10,7 +10,7 @@ app.component('product-display', {
         `<div class="product-display">
             <div class="product-container">
                 <div class="product-image">
-                    <img :src="image" />
+                    <img :src="image" :class="{ out: !inStock}"/>
                 </div>   
                 <div class="product-info">
                     <h3 v-if="inStock">{{ displayOnSale }}</h3>
@@ -22,10 +22,11 @@ app.component('product-display', {
                     <p>Shipping {{shipping}}</p>
 
                     <div v-for="(variant, index) in variants" :key="variant.id" @mouseover="updateVariant(index)" class="color-circle" :style="{ backgroundColor: variant.color }">
-                        {{variant.color}}
                     </div>
 
                     <button class="button" :class="{ disabledButton: !inStock}" :disabled="!inStock" @click="addToCart">Add to Cart</button>
+                    <button class="button" :class="{ disabledButton: !inStock}" :disabled="!inStock" @click="popCart">Remove</button>
+    
                 </div>
             </div>
         </div>`,
@@ -45,7 +46,10 @@ app.component('product-display', {
         },
         methods: {
             addToCart() {
-                this.cart ++
+                this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+            },
+            popCart() {
+                this.$emit('remove-item')
             },
             updateImage(variantImage) {
                 this.image = variantImage
@@ -76,19 +80,3 @@ app.component('product-display', {
         },
 })
 
-app.component('product-details', {
-    props: {
-        details:{
-            type:String,
-            required:true
-        }
-    },
-    template:
-        /*html*/
-        `
-        <p>Detail:</p>
-        <ul>
-            <li v-for="detail in details">{{ detail }}</li>
-        </ul>
-        ` 
-})
