@@ -11,6 +11,7 @@ const app = Vue.createApp({
             ],
             selectedVariant: 0,
             cart: 0,
+            premium: true,
             onSale: true
         }
     },
