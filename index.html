@@ -22,14 +22,17 @@
                     <img :src="image">
                 </div>
                 <div class="product-info">
-                    <h1>{{ product }}</h1>
+
+                    <h3 v-if="inStock">{{ displayOnSale }}</h3>
+
+                     <h1>{{ title }}</h1>
                     <p v-if="inventory > 10">In Stock</p>
                     <p v-else-if="inventory <= 10 && inventory > 0">In Stock</p>
                     <p v-else>Out of Stock</p>
                     <ul>
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
-                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)" class="color-circle" :style="{backgroundColor: variant.color}" >{{ variant.color }}</div>
+                    <div v-for="(variant, index) in variants" :key="variant.id" @mouseover="updateImage(index)" class="color-circle" :style="{backgroundColor: variant.color}" >{{ variant.color }}</div>
                     <button class="button" @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
                 </div>
             </div>
